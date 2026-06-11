@@ -1,0 +1,49 @@
+La Entrega III del Taller de Tesis I tiene como objetivo dar contenido al material definido en la primera entrega y estructurado en la segunda. La presentación no puede tener más de 15 páginas.  En concreto: 
+1.Incorporar el feedback de la segunda entrega. 
+Feedback:
+"El análisis exploratorio de los datos está muy bien. 
+
+Me hubiera gustado ver la distribución del IFI  y del IFT para viajes intra-CABA/intra-PBA y PBA-CABA. 
+
+En cuanto a las redes, si no me equivoco, los enlaces se determinarán por estas medidas, ¿o sea que la centralidad sería a qué lugar es más difícil llegar? ¿o algo así? ¿El betweenness centrality sería el lugar por el que menos pasan? Si querés analizar esas métricas de grafos, ¿no convendría considerar como enlaces la inversa del IFI o ITF? 
+
+No me queda claro qué información proporcionará el estudio de clustering."
+
+2.Título del trabajo
+3.En el editor de preferencia definir el índice del trabajo práctico final. Dejamos un ejemplo a modo de guía. Pueden adaptarlo o hacer el que les resulte conveniente. 
+Ejemplo:
+A modo de guía, el índice de un trabajo final de especialización podría contener: 
+
+1.Introducción:
+	a.Contexto y motivación científica
+	b.Objetivos del trabajo / Pregunta
+	c.Estructura del documento
+2.Marco teórico:
+	a.Relevamiento de trabajos previos y relevantes
+	b.Conceptos y técnicas de ciencia de datos utilizados en el trabajo
+3.Metodología:
+	a.Presentación y descripción de los datos utilizados 
+	b.Preprocesamiento y limpieza de los datos 
+	c.Análisis exploratorio de datos (AED)
+	d.Descripción de las técnicas de análisis y, si corresponde, de modelado
+	e.Descripción de la selección de características (si corresponde)
+	f.Descripción de las métricas de evaluación de los modelos (si corresponde)
+	g.Descripción de los métodos estadísticos utilizados (si corresponde)
+4.Resultados y discusión:
+	a.Presentación y análisis de resultados obtenidos
+	b.Discusión de los resultados y su relevancia
+	c.Limitaciones y posibles mejoras
+5.Conclusión:
+	a.Resumen de los hallazgos principales
+	b.Conclusiones generales y su relación con los objetivos del trabajo
+	c.Recomendaciones para futuros trabajos
+6.Bibliografía:
+	a.Referencias bibliográficas citadas en el documento
+	b.Otras fuentes consultadas
+7.Anexos (opcionales):
+	a.Código fuente utilizado en el análisis (link a un repositorio)
+	b.Tablas y gráficos adicionales
+	c.Otros materiales relevantes
+
+4.Rellenar cada sección con contenido, especialmente con lo realizado anteriormente. No redactar el texto completo; el objetivo es identificar claramente las ideas principales del trabajo y dar a cada párrafo una estructura coherente. (Sugerencia:  utilizar bullets para escribir las ideas principales de cada sección).
+Unir el contenido de la introducción y del marco teórico con la bibliografía seleccionada. 

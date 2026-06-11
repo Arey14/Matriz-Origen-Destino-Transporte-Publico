@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentación de Tesis - Matriz OD y Vulnerabilidad Socio-Espacial</title>
+  <!-- Google Fonts: Inter y Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- MathJax for rendering LaTeX formulas -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #020617 100%);
+      --card-bg: rgba(30, 41, 59, 0.45);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --primary: #818cf8;
+      --primary-hover: #6366f1;
+      --accent: #34d399;
+      --accent-sec: #f43f5e;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --sidebar-bg: rgba(15, 23, 42, 0.8);
+      --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-fast: all 0.2s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+    }
+
+    /* Contenedor Principal */
+    .presentation-container {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Sidebar / Navegación */
+    .sidebar {
+      width: 280px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      padding: 2rem 1.5rem;
+      z-index: 10;
+      backdrop-filter: blur(20px);
+    }
+
+    .sidebar-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .sidebar-header h1 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      color: var(--primary);
+      text-transform: uppercase;
+    }
+
+    .sidebar-header p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .nav-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+
+    .nav-item {
+      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: 1px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-main);
+    }
+
+    .nav-item.active {
+      background: var(--card-bg);
+      color: var(--primary);
+      border-color: var(--card-border);
+      font-weight: 600;
+    }
+
+    .nav-number {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      opacity: 0.6;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid var(--card-border);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    /* Área de Diapositivas */
+    .slides-viewport {
+      flex-grow: 1;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Barra de Progreso */
+    .progress-bar-container {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.05);
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    /* Estilos de las Diapositivas */
+    .slides-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      padding: 3.5rem 4rem 5rem 4rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(50px);
+      transition: var(--transition-slow);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      overflow-y: auto;
+    }
+
+    .slide.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .slide.previous {
+      transform: translateX(-50px);
+    }
+
+    /* Cabeceras de Diapositiva */
+    .slide-header {
+      margin-bottom: 2rem;
+    }
+
+    .slide-category {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .slide-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+    }
+
+    /* Layouts Flexibles para el Contenido */
+    .slide-content {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 1.5rem;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .grid-equal {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    /* Tarjetas Glassmorphic */
+    .glass-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+      transition: var(--transition-fast);
+    }
+
+    .glass-card:hover {
+      border-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+    }
+
+    .card-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Listas y viñetas elegantes */
+    ul.bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    ul.bullet-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-main);
+    }
+
+    ul.bullet-list li::before {
+      content: "•";
+      position: absolute;
+      left: 0.25rem;
+      color: var(--primary);
+      font-size: 1.5rem;
+      line-height: 1;
+      top: -0.1rem;
+    }
+
+    ul.bullet-list li strong {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* Estilos específicos para la Portada (Slide 1) */
+    .cover-slide {
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 4rem;
+    }
+
+    .cover-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #fff 30%, var(--primary) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+      max-width: 900px;
+    }
+
+    .cover-subtitle {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+      max-width: 700px;
+    }
+
+    .cover-details {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.02);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      border: 1px solid var(--card-border);
+    }
+
+    .cover-details strong {
+      color: var(--text-main);
+    }
+
+    /* Alertas e Infos destacadas */
+    .alert-box {
+      border-left: 4px solid var(--accent);
+      background: rgba(52, 211, 153, 0.08);
+      padding: 1rem;
+      border-radius: 0 8px 8px 0;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    
+    .alert-box.warning {
+      border-color: var(--accent-sec);
+      background: rgba(244, 63, 94, 0.08);
+    }
+
+    .alert-box strong {
+      color: var(--text-main);
+    }
+
+    /* Estilo de Gráficos Embebidos */
+    .figure-container {
+      width: 100%;
+      height: 100%;
+      min-height: 250px;
+      background: rgba(15, 23, 42, 0.3);
+      border-radius: 8px;
+      border: 1px solid var(--card-border);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      padding: 0.5rem;
+    }
+
+    .figure-container img {
+      max-width: 100%;
+      max-height: 380px;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .figure-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    /* Tablas Estilizadas */
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .custom-table th {
+      background: rgba(129, 140, 248, 0.15);
+      color: var(--primary);
+      text-align: left;
+      padding: 0.6rem 0.8rem;
+      font-weight: 600;
+      border-bottom: 2px solid var(--card-border);
+    }
+
+    .custom-table td {
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid var(--card-border);
+      color: var(--text-main);
+    }
+
+    .custom-table tr:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Botones de Navegación */
+    .nav-controls {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      display: flex;
+      gap: 1rem;
+      z-index: 10;
+    }
+
+    .btn-nav {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      color: var(--text-main);
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .btn-nav:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-nav:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* Atajos en Teclado */
+    .keyboard-hint {
+      position: absolute;
+      bottom: 2rem;
+      left: 4rem;
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      opacity: 0.8;
+      display: flex;
+      gap: 1rem;
+      pointer-events: none;
+    }
+
+    .key-badge {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      font-family: monospace;
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="presentation-container">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>Entrega 3</h1>
+        <p>Análisis SUBE & Vulnerabilidad</p>
+      </div>
+      
+      <ul class="nav-list" id="navList">
+        <li class="nav-item active" onclick="goToSlide(0)">
+          <span class="nav-number">01</span> Portada
+        </li>
+        <li class="nav-item" onclick="goToSlide(1)">
+          <span class="nav-number">02</span> Introducción
+        </li>
+        <li class="nav-item" onclick="goToSlide(2)">
+          <span class="nav-number">03</span> Feedback: IFI / IFT
+        </li>
+        <li class="nav-item" onclick="goToSlide(3)">
+          <span class="nav-number">04</span> Feedback: Redes
+        </li>
+        <li class="nav-item" onclick="goToSlide(4)">
+          <span class="nav-number">05</span> Feedback: Clustering
+        </li>
+        <li class="nav-item" onclick="goToSlide(5)">
+          <span class="nav-number">06</span> Resultados: Correlación
+        </li>
+        <li class="nav-item" onclick="goToSlide(6)">
+          <span class="nav-number">07</span> Resultados: Regresión OLS
+        </li>
+        <li class="nav-item" onclick="goToSlide(7)">
+          <span class="nav-number">08</span> Resultados: Clusters
+        </li>
+        <li class="nav-item" onclick="goToSlide(8)">
+          <span class="nav-number">09</span> Conclusiones
+        </li>
+      </ul>
+      
+      <div class="sidebar-footer">
+        <span>Autor: <strong>Augusto Rey</strong></span>
+      </div>
+    </aside>
+
+    <!-- Diapositivas Viewport -->
+    <main class="slides-viewport">
+      <div class="progress-bar-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <div class="slides-container" id="slidesContainer">
+        
+        <!-- SLIDE 1: PORTADA -->
+        <section class="slide active cover-slide">
+          <h2 class="cover-title">Matriz de Origen-Destino de Transporte Público en base a datos SUBE</h2>
+          <p class="cover-subtitle">Análisis de Vulnerabilidad Socio-Espacial e Intermodalidad Forzada en el AMBA</p>
+          <div class="cover-details">
+            <span>Autor: <strong>Augusto Rey</strong></span>
+            <span>Especialización en Ciencia de Datos (UBA)</span>
+            <span>Año: <strong>2026</strong></span>
+          </div>
+        </section>
+
+        <!-- SLIDE 2: INTRODUCCIÓN -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-category">01 . Contexto</span>
+            <h2 class="slide-title">Problemática y Objetivos del Trabajo</h2>
+          </div>
+          <div class="slide-content grid-2col">
+            <div class="glass-card">
+              <div class="card-title">El Problema de Movilidad del AMBA</div>
+              <ul class="bullet-list">
+                <li><strong>Fragmentación Espacial</strong>: Asimetría severa entre la distribución del empleo formal (concentrado en el centro/CABA) y el crecimiento habitacional (extendido en la periferia/PBA).</li>
+                <li><strong>Intermodalidad Forzada</strong>: Residentes periféricos obligados a realizar múltiples combinaciones (colectivo + tren + subte) debido a la baja cobertura directa.</li>
+                <li><strong>Vulnerabilidad Socio-Espacial</strong>: Los sectores de menores ingresos no solo viajan más tiempo, sino que sufren una mayor fricción física y económica por cada transbordo.</li>
+              </ul>
+            </div>
+            <div class="glass-card">
+              <div class="card-title">Objetivos de Investigación</div>
+              <ul class="bullet-list">
+                <li><strong>Construcción de Matriz OD</strong>: Generar y modelar la matriz origen-destino intermodal agregada bajo grilla hexagonal (H3 resolución 8).</li>
+                <li><strong>Ingeniería de Características</strong>: Cuantificar la ineficiencia (IFI) y la fricción de transbordo (IFT) de los flujos de viaje diarios.</li>
+                <li><strong>Evaluación de Redes y Equidad</strong>: Analizar la red en base a centralidades ponderadas y cruzar estos indicadores estructurales con variables socioeconómicas.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 3: FEEDBACK IFI/IFT -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-category">02 . Integración de Feedback</span>
+            <h2 class="slide-title">Distribución Jurisdiccional de IFI e IFT</h2>
+          </div>
+          <div class="slide-content grid-2col" style="grid-template-columns: 0.95fr 1.05fr;">
+            <div class="glass-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <div class="card-title">Distribución por Tipo de Viaje</div>
+                <ul class="bullet-list">
+                  <li><strong>IFI (Ineficiencia de Viaje)</strong>:
+                    <ul>
+                      <li><em>Intra-CABA</em>: Distribución concentrada, con mediana baja. Indica viajes directos.</li>
+                      <li><em>Intra-PBA</em>: Mayor dispersión, viajes regionales con desvíos físicos importantes.</li>
+                      <li><em>PBA-CABA (Interjurisdiccional)</em>: Mediana más alta de IFI, reflejando rodeos obligatorios para ingresar a los corredores radiales.</li>
+                    </ul>
+                  </li>
+                  <li style="margin-top:0.5rem;"><strong>IFT (Fricción de Transbordo)</strong>:
+                    <ul>
+                      <li>El viaje promedio PBA-CABA acumula más de 1.6 transbordos promedio, multiplicando la fatiga e incertidumbre del usuario, comparado con 0.3 en viajes internos de CABA.</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="alert-box" style="margin-top: 1rem;">
+                <strong>Evidencia</strong>: Los boxplots muestran colas largas de ineficiencia en el conurbano bonaerense (viajes PBA-PBA y PBA-CABA).
+              </div>
+            </div>
+            <div class="figure-container" style="padding: 1rem;">
+              <img src="../../figura12_boxplot_ifi_ift.png" alt="Boxplot IFI IFT por jurisdicción" style="max-height: 520px; width: 100%; object-fit: contain;">
+              <div class="figure-caption">Fig. 12: Distribución de IFI y IFT para viajes intra-CABA, intra-PBA y PBA-CABA.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 4: FEEDBACK REDES -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-category">03 . Integración de Feedback</span>
+            <h2 class="slide-title">Métricas de Grafos y Lógica de Enlaces</h2>
+          </div>
+          <div class="slide-content grid-2col">
+            <div class="glass-card">
+              <div class="card-title">Modelado Físico y Direccional</div>
+              <ul class="bullet-list">
+                <li><strong>Enlaces basados en IFI / IFT</strong>: Los pesos del grafo representan la fricción acumulada entre hexágonos.
+                  <ul>
+                    <li>Para buscar el camino más eficiente (ruteo/Dijkstra), los enlaces deben tener el peso directo de <strong>IFI o IFT</strong> (buscando minimizar costo).</li>
+                    <li>Un camino de mínimo costo representa la ruta con menor fricción o desvío físico.</li>
+                  </ul>
+                </li>
+                <li><strong>Significado de las Centralidades</strong>:
+                  <ul>
+                    <li><strong>Cercanía (Closeness)</strong>: La inversa de la distancia media. Una cercanía <em>baja</em> significa que un hexágono está estructuralmente aislado (alta dificultad general para llegar a él).</li>
+                    <li><strong>Intermediación (Betweenness)</strong>: Frecuencia con la que un nodo es puente. Un valor <em>alto</em> identifica cuellos de botella e hitos de trasbordo forzado.</li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div class="glass-card">
+              <div class="card-title">El Rol de la Inversa ($1/\text{IFI}$, $1/\text{IFT}$)</div>
+              <div class="alert-box">
+                <strong>¿Cuándo usar la inversa?</strong><br>
+                La inversa $1/\text{IFI}$ y $1/\text{IFT}$ representa la <strong>fuerza de conexión o facilidad</strong>. Se utiliza para:
+                <ul style="margin-top: 0.5rem; padding-left: 1rem; list-style-type: circle;">
+                  <li>Algoritmos de detección de comunidades (donde pesos altos representan enlaces fuertes).</li>
+                  <li>Grafos de similitud estructural o clusters de conectividad directa.</li>
+                </ul>
+              </div>
+              <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                Ambos enfoques son válidos e instrumentales para distintas preguntas de investigación: peso directo para ruteo de costo, peso inverso para afinidad/comunidades.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 5: FEEDBACK CLUSTERING -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-category">04 . Integración de Feedback</span>
+            <h2 class="slide-title">Propósito y Valor del Clustering Espacial</h2>
+          </div>
+          <div class="slide-content grid-equal">
+            <div class="glass-card">
+              <div class="card-title">¿Qué aporta el Clustering con HDBSCAN?</div>
+              <ul class="bullet-list">
+                <li><strong>Segmentación Multidimensional</strong>: Evita análisis univariados aislados. Integra IFI, IFT, centralidades estructurales (Closeness, Betweenness) y vulnerabilidad social en una sola tipología geográfica.</li>
+                <li><strong>Descubrimiento de Patrones no Lineales</strong>: Agrupa de manera orgánica hexágonos con perfiles idénticos de ineficiencia sin forzar límites municipales o políticos artificiales.</li>
+                <li><strong>Foco para Políticas Públicas</strong>: Permite a los planificadores identificar clusters críticos específicos donde el transporte falla sistemáticamente y la población es vulnerable.</li>
+              </ul>
+            </div>
+            <div class="glass-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div class="alert-box">
+                <strong>Variables de Entrada del Algoritmo</strong>:
+                <ul style="margin-top:0.5rem; padding-left:1.2rem; font-size:0.85rem; list-style-type:square;">
+                  <li>IFI medio por hexágono (eficiencia del viaje)</li>
+                  <li>IFT medio por hexágono (número de transbordos)</li>
+                  <li>Centralidad de Cercanía ponderada (aislamiento)</li>
+                  <li>Centralidad de Intermediación (puentes y trasbordos)</li>
+                  <li>Porcentaje de Tarifa Social (vulnerabilidad de ingresos)</li>
+                </ul>
+              </div>
+              <div class="alert-box warning" style="margin-top:0.5rem;">
+                <strong>Resultado</strong>: Identifica que la ineficiencia y el aislamiento del conurbano no son homogéneos, existiendo "bolsones críticos" específicos frente a nodos hiperconectados.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 6: RESULTADOS CORRELACIÓN -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-category">05 . Resultados</span>
+            <h2 class="slide-title">Cruzamiento Socio-Espacial y Correlaciones</h2>
+          </div>
+          <div class="slide-content grid-2col">
+            <div class="glass-card">
+              <div class="card-title">Matriz de Correlación Estadística</div>
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Relación Analizada</th>
+                    <th>Pearson (r)</th>
+                    <th>Spearman (ρ)</th>
+                    <th>Interpretación del Hallazgo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Tarifa Social vs. Cercanía</strong></td>
+                    <td style="color:var(--accent-sec); font-weight:bold;">-0.304</td>
+                    <td style="color:var(--accent-sec); font-weight:bold;">-0.280</td>
+                    <td>Sectores vulnerables viven en zonas con baja accesibilidad de red (aislamiento).</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tarifa Social vs. IFI</strong></td>
+                    <td style="color:var(--accent); font-weight:bold;">+0.357</td>
+                    <td style="color:var(--accent); font-weight:bold;">+0.347</td>
+                    <td>Viajes de usuarios de bajos recursos son sistemáticamente más indirectos.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Tarifa Social vs. IFT</strong></td>
+                    <td style="color:var(--accent); font-weight:bold;">+0.321</td>
+                    <td style="color:var(--accent); font-weight:bold;">+0.312</td>
+                    <td>Mayor dependencia y fricción por transbordo en áreas vulnerables.</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--text-muted);">
+                *Todas las correlaciones son estadísticamente significativas con p-value < 0.001.
+              </p>
+            </div>
+            <div class="glass-card" style="display:flex; flex-direction:column; justify-content:center; gap:0.75rem;">
+              <div class="card-title">Conclusión de Correlaciones</div>
+              <p style="font-size: 0.9rem; line-height: 1.5;">
+                La correlación negativa entre Tarifa Social y Cercanía demuestra que <strong>el aislamiento espacial y la pobreza se refuerzan mutuamente</strong> en el AMBA.
+              </p>
+              <p style="font-size: 0.9rem; line-height: 1.5;">
+                La correlación positiva con el IFI e IFT demuestra que el transporte público penaliza a quienes menos recursos tienen, forzando viajes más costosos en tiempo y transbordos.
+              </p>
+            </div>
+        </section>
+
+        <!-- SLIDE 7: RESULTADOS REGRESIÓN OLS -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-category">06 . Resultados</span>
+            <h2 class="slide-title">Cuantificación del Transbordo (Regresión OLS)</h2>
+          </div>
+          <div class="slide-content grid-2col">
+            <div class="glass-card">
+              <div class="card-title">Modelo de Regresión Lineal de Duración</div>
+              <p style="font-size: 0.85rem; margin-bottom: 0.75rem; color: var(--text-muted);">
+                Estimación por mínimos cuadrados ordinarios ($N = 5.508.005$ viajes, $R^2 = 0.2089$).
+              </p>
+              <table class="custom-table" style="font-size: 0.8rem;">
+                <thead>
+                  <tr>
+                    <th>Variable Explicativa</th>
+                    <th>Coeficiente (β)</th>
+                    <th>t-stat</th>
+                    <th>p-value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Cantidad de Etapas</strong></td>
+                    <td style="color:var(--accent-sec); font-weight:bold;">+22.839 min</td>
+                    <td style="color:var(--accent-sec); font-weight:bold;">1025.51</td>
+                    <td>&lt; 0.0001</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Distancia (km)</strong></td>
+                    <td>+0.137 min</td>
+                    <td>89.57</td>
+                    <td>&lt; 0.0001</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Densidad Oferta Origen</strong></td>
+                    <td>+0.087 min</td>
+                    <td>40.16</td>
+                    <td>&lt; 0.0001</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Latitud Origen</strong></td>
+                    <td>+1.949 min</td>
+                    <td>15.16</td>
+                    <td>&lt; 0.0001</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Longitud Origen</strong></td>
+                    <td>-0.008 min</td>
+                    <td>-0.09</td>
+                    <td style="color:var(--text-muted);">0.9278</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="glass-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div class="card-title">Interpretación de la Penalización</div>
+              <ul class="bullet-list" style="font-size: 0.88rem; gap: 0.6rem;">
+                <li><strong>El costo neto del transbordo</strong>: Controlando por distancia y ubicación, cada transbordo adicional añade en promedio <strong>22.84 minutos</strong> al viaje total.</li>
+                <li><strong>Distancia vs. Fragmentación</strong>: La distancia aporta solo <strong>8.2 segundos por km</strong>, lo que demuestra que los tiempos de espera y acceso en transbordos dominan la duración del viaje.</li>
+                <li><strong>Congestión en Origen</strong>: La densidad de paradas en el origen aumenta el tiempo de viaje ligeramente (demoras de abordaje y tráfico local).</li>
+              </ul>
+              <div class="alert-box" style="margin-top: 0.5rem; padding: 0.75rem; font-size: 0.8rem;">
+                <strong>Conclusión</strong>: El transbordo obligatorio penaliza temporalmente al usuario, explicando por qué los viajes interjurisdiccionales de conmuters son tan prolongados.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 8: RESULTADOS CLUSTERS -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-category">06 . Resultados</span>
+            <h2 class="slide-title">Perfiles de Exclusión por Clusters (HDBSCAN)</h2>
+          </div>
+          <div class="slide-content grid-2col" style="grid-template-columns: 0.95fr 1.05fr;">
+            <div class="glass-card">
+              <div class="card-title">Perfiles de los Clusters Clave</div>
+              <ul class="bullet-list">
+                <li><strong>Clúster 0: Periferia Crítica</strong>
+                  <br><span style="font-size: 0.8rem; color: var(--accent);">Tarifa Social: ~45% | IFI: Alto | Cercanía: Muy Baja</span>
+                  <br><span style="font-size: 0.85rem; color: var(--text-muted);">Ubicación: Extremos de Florencio Varela, Merlo y Moreno. Alto aislamiento, dependencia de transbordos ineficientes.</span>
+                </li>
+                <li style="margin-top: 0.5rem;"><strong>Clúster 1: Nodos Conectores</strong>
+                  <br><span style="font-size: 0.8rem; color: var(--accent);">Tarifa Social: ~32% | Intermediación (Betweenness): Máxima</span>
+                  <br><span style="font-size: 0.85rem; color: var(--text-muted);">Nodos clave como Constitución, Retiro, Liniers y Lanús. Alta congestión y vulnerabilidad operativa ante fallas.</span>
+                </li>
+                <li style="margin-top: 0.5rem;"><strong>Clúster 2: Centro Consolidado</strong>
+                  <br><span style="font-size: 0.8rem; color: var(--accent);">Tarifa Social: &lt;15% | IFI/IFT: Bajos | Cercanía: Máxima</span>
+                  <br><span style="font-size: 0.85rem; color: var(--text-muted);">Corredor norte de CABA y primer cordón urbano. Acceso directo al empleo y nula fricción espacial.</span>
+                </li>
+              </ul>
+            </div>
+            <div class="figure-container" style="padding: 1rem;">
+              <img src="../../figura13_densidad_ifi_ift.png" alt="Curvas de densidad IFI IFT" style="max-height: 520px; width: 100%; object-fit: contain;">
+              <div class="figure-caption">Fig. 13: Perfil de densidad de probabilidad de IFI y IFT para los clusters identificados.</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- SLIDE 8: CONCLUSIONES -->
+        <section class="slide">
+          <div class="slide-header">
+            <span class="slide-category">07 . Síntesis</span>
+            <h2 class="slide-title">Conclusiones y Recomendaciones de Planificación</h2>
+          </div>
+          <div class="slide-content grid-equal">
+            <div class="glass-card">
+              <div class="card-title">Principales Conclusiones</div>
+              <ul class="bullet-list">
+                <li><strong>Injusticia Socio-Espacial</strong>: La población del conurbano que viaja hacia el centro realiza un esfuerzo desproporcionadamente mayor de transbordos e ineficiencia física.</li>
+                <li><strong>El Rol de los Nodos</strong>: El estudio cuantitativo de intermediación identifica con precisión los cuellos de botella que requieren intervención urgente.</li>
+                <li><strong>Datos SUBE como Sensor Urbano</strong>: Se valida la metodología para procesar Smart Card Data masiva y transformarla en métricas estructuradas de equidad territorial.</li>
+              </ul>
+            </div>
+            <div class="glass-card">
+              <div class="card-title">Recomendaciones de Políticas Públicas</div>
+              <ul class="bullet-list">
+                <li><strong>Rediseño de Red Radial</strong>: Integrar líneas de colectivos periféricas y transversales para evitar el embudo radial hacia CABA.</li>
+                <li><strong>Subsidios Focalizados</strong>: Utilizar la delimitación de los clusters críticos de HDBSCAN para orientar tarifas diferenciales y mejoras operativas directamente en las zonas de mayor exclusión.</li>
+                <li><strong>Infraestructura de Transferencia</strong>: Invertir en los nodos conectores identificados con alta intermediación para mitigar la fricción de transbordo (mejoras físicas, seguridad e información).</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Controles de Navegación -->
+      <div class="nav-controls">
+        <button class="btn-nav" id="btnPrev" onclick="prevSlide()" disabled>← Anterior</button>
+        <button class="btn-nav" id="btnNext" onclick="nextSlide()">Siguiente →</button>
+      </div>
+
+      <!-- Hint de Teclado -->
+      <div class="keyboard-hint">
+        <span>Avanzar: <span class="key-badge">Espacio</span> o <span class="key-badge">→</span></span>
+        <span>Retroceder: <span class="key-badge">←</span></span>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Lógica de navegación en JS -->
+  <script>
+    let currentSlideIndex = 0;
+    const slides = document.querySelectorAll('.slide');
+    const navItems = document.querySelectorAll('.nav-item');
+    const progressBar = document.getElementById('progressBar');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+
+    function updatePresentation() {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active', 'previous');
+        if (index === currentSlideIndex) {
+          slide.classList.add('active');
+        } else if (index < currentSlideIndex) {
+          slide.classList.add('previous');
+        }
+      });
+
+      navItems.forEach((item, index) => {
+        if (index === currentSlideIndex) {
+          item.classList.add('active');
+          // Asegurar de scroll en sidebar si es necesario
+          item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          item.classList.remove('active');
+        }
+      });
+
+      // Actualizar progreso
+      const progress = (currentSlideIndex / (slides.length - 1)) * 100;
+      progressBar.style.width = `${progress}%`;
+
+      // Habilitar/deshabilitar controles
+      btnPrev.disabled = currentSlideIndex === 0;
+      btnNext.disabled = currentSlideIndex === slides.length - 1;
+    }
+
+    function goToSlide(index) {
+      if (index >= 0 && index < slides.length) {
+        currentSlideIndex = index;
+        updatePresentation();
+      }
+    }
+
+    function nextSlide() {
+      if (currentSlideIndex < slides.length - 1) {
+        currentSlideIndex++;
+        updatePresentation();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        updatePresentation();
+      }
+    }
+
+    // Navegación por teclado
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') {
+        nextSlide();
+        event.preventDefault();
+      } else if (event.key === 'ArrowLeft' || event.key === 'PageUp') {
+        prevSlide();
+        event.preventDefault();
+      }
+    });
+
+    // Inicializar barra de progreso al cargar
+    updatePresentation();
+  </script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+data/indices_h3.csv
+data/lineas_ramales.csv
+data/paradas.csv
+data/tarifas.csv
+data/transacciones.csv
+resultados/comparacion_escalas_h3.csv
+resultados/estadisticas_IFI.csv
+resultados/estadisticas_IFT.csv
+resultados/etapas.csv
+resultados/metricas_vulnerabilidad_red.csv
+resultados/metricas_vulnerabilidad_voronoi.csv
+resultados/regresion_ols.csv
+resultados/tarjetas.csv
+resultados/viajes.csv
+resultados/.ipynb_checkpoints/etapas-checkpoint.csv
+resultados/.ipynb_checkpoints/tarjetas-checkpoint.csv
+resultados/.ipynb_checkpoints/viajes-checkpoint.csv

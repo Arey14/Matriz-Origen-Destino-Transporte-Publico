@@ -1,0 +1,23 @@
+---
+title: "Fricción espacial e intermodalidad forzada en el transporte público del AMBA"
+subtitle: "Un análisis de redes y clustering espacial basado en datos SUBE"
+author: "Facundo Augusto Martin Rey"
+date: "10 de Junio de 2026"
+geometry:
+  - top=2.5cm
+  - bottom=2.5cm
+  - left=3cm
+  - right=3cm
+fontsize: 12pt
+linestretch: 1.5
+toc: true
+toc-title: "Índice de Contenidos"
+numbersections: true
+header-includes:
+  - \usepackage{amsmath}
+  - \usepackage{booktabs}
+  - \usepackage{graphicx}
+  - \usepackage{hyperref}
+  - \usepackage{float}
+  - \floatplacement{figure}{H}
+---
