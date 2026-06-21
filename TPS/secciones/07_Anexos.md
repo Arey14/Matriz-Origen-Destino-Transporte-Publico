@@ -4,7 +4,9 @@
 
 El código desarrollado para este análisis, incluyendo el cuaderno de Jupyter `EDA-duck.ipynb` y el script de redes `analisis_vulnerabilidad_red.py`, se encuentra alojado en el repositorio público del proyecto. 
 
-*   **Enlace al Repositorio**: `https://github.com/facundo-augusto-rey/Tesis-Matriz-OD-Transporte-AMBA`
+*   **Enlace al Repositorio**: 
+
+* `https://github.com/facundo-augusto-rey/Tesis-Matriz-OD-Transporte-AMBA`
 
 ## Resumen Técnico del Procesamiento
 
@@ -21,9 +23,12 @@ El flujo de trabajo automatizado en Python para el Enfoque 2 (Grafo y Centralida
 
 ### Flujos y Conexiones de Red Consolidadas (Top 10 Enlaces de Mayor Duración de Viaje por Jurisdicción)
 
-A continuación se presentan los 10 enlaces estables de la red de transporte público del AMBA (filtrados con un volumen de al menos **210 viajes semanales** para capturar tanto corredores de volumen masivo como conexiones secundarias estables de menor frecuencia, excluyendo bucles locales de origen/destino idéntico) que registran las **mayores duraciones medias de viaje, ordenados de mayor a menor**, incluyendo la distancia media calculada (Haversine) y el modo principal de transporte observado.
+A continuación se presentan los 10 enlaces estables de la red de transporte público del AMBA (filtrados con un volumen de al menos **200 viajes semanales** para capturar tanto corredores de volumen masivo como conexiones secundarias estables de menor frecuencia, excluyendo bucles locales de origen/destino idéntico) que registran las **mayores duraciones medias de viaje, ordenados de mayor a menor**, incluyendo la distancia media calculada (Haversine) y el modo principal de transporte observado.
 
 #### 1. Enlaces Intra-CABA (Internos de la Ciudad de Buenos Aires)
+
+\scriptsize
+
 | Referencia Origen | Referencia Destino | Volumen (Viajes) | Duración Media (Horas) | Distancia Media (km) | Modo de Transporte |
 | :--- | :--- | :---: | :---: | :---: | :--- |
 | Belgrano C (Comuna 13) | Retiro (Comuna 1) | 247 | 0.94 | 7.82 | Tren + Subte |
@@ -37,7 +42,12 @@ A continuación se presentan los 10 enlaces estables de la red de transporte pú
 | Leandro N. Alem (Comuna 1) | Lacroze (Chacarita, Comuna 15) | 736 | 0.62 | 8.01 | Tren + Subte |
 | Devoto (Comuna 11) | Retiro (Comuna 1) | 563 | 0.59 | 12.87 | Solo Tren |
 
+\normalsize
+
 #### 2. Enlaces Intra-PBA (Internos del Conurbano Bonaerense)
+
+\scriptsize
+
 | Referencia Origen | Referencia Destino | Volumen (Viajes) | Duración Media (Horas) | Distancia Media (km) | Modo de Transporte |
 | :--- | :--- | :---: | :---: | :---: | :--- |
 | Lomas de Zamora Centro | Sin nombre (Almirante Brown) | 285 | 1.03 | 11.13 | Col + Tren |
@@ -51,7 +61,12 @@ A continuación se presentan los 10 enlaces estables de la red de transporte pú
 | Quilmes Centro | La Plata Centro | 681 | 0.91 | 34.75 | Col + Tren |
 | Berazategui Centro | La Plata Centro | 631 | 0.91 | 28.34 | Solo Tren |
 
+\normalsize
+
 #### 3. Enlaces PBA-CABA (Entrada a la Ciudad desde el Conurbano)
+
+\scriptsize
+
 | Referencia Origen | Referencia Destino | Volumen (Viajes) | Duración Media (Horas) | Distancia Media (km) | Modo de Transporte |
 | :--- | :--- | :---: | :---: | :---: | :--- |
 | La Plata Centro | Constitución (Comuna 1) | 581 | 1.45 | 50.03 | Tren + Subte |
@@ -65,4 +80,6 @@ A continuación se presentan los 10 enlaces estables de la red de transporte pú
 | Merlo Centro | Sin nombre (Comuna 3) | 353 | 1.17 | 30.10 | Col + Tren |
 | Tigre Centro | Retiro (Comuna 1) | 472 | 1.17 | 26.64 | Tren + Subte |
 
-*Nota: Al filtrar por un volumen de al menos 210 viajes semanales y excluir bucles locales de origen/destino idéntico, emergen con fuerza los trayectos que combinan colectivos y trenes (Col + Tren) o trenes y subtes (Tren + Subte). Los viajes interjurisdiccionales (PBA-CABA) de conmuters desde el oeste (Moreno, Merlo) y el sur (Glew, Varela, La Plata) registran duraciones medias elevadas que superan con holgura la hora de viaje neto, demostrando el impacto del transbordo forzado en la fricción temporal metropolitana. Asimismo, el cálculo de la distancia Haversine media permite contrastar la extensión física de los enlaces frente a la escala de fricción temporal, confirmando que las ineficiencias de transbordo dominan la experiencia de viaje.*
+\normalsize
+
+*Nota: Al filtrar por un volumen de al menos 200 viajes semanales y excluir bucles locales de origen/destino idéntico, emergen con fuerza los trayectos que combinan colectivos y trenes (Col + Tren) o trenes y subtes (Tren + Subte). Los viajes interjurisdiccionales (PBA-CABA) de conmuters desde el oeste (Moreno, Merlo) y el sur (Glew, Varela, La Plata) registran duraciones medias elevadas que superan con holgura la hora de viaje neto, demostrando el impacto del transbordo forzado en la fricción temporal metropolitana. Asimismo, el cálculo de la distancia Haversine media permite contrastar la extensión física de los enlaces frente a la escala de fricción temporal, confirmando que las ineficiencias de transbordo dominan la experiencia de viaje.*

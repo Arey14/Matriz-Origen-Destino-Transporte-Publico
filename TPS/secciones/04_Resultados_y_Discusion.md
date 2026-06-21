@@ -9,17 +9,17 @@ El procesamiento de los datos transaccionales descriptivos de la muestra oficial
 ### 1. Relación Geografía - Intermodalidad
 Al segmentar los viajes según su tipología geográfica, emergió una marcada diferencia estructural en el nivel de transbordos. Mientras el 80.2% de los viajes internos en la Ciudad de Buenos Aires (Intra-CABA) se resuelven de forma directa en una sola etapa, en la movilidad interjurisdiccional (CABA-PBA) el escenario se invierte de forma drástica: solo el 41.3% de los usuarios logra desplazarse sin realizar transbordos, mientras que el 44.4% requiere 2 etapas y un 14.3% realiza 3 o más etapas en su trayecto. Los viajes internos en el conurbano (Intra-PBA) presentan una tasa de transbordo intermedia, donde el 70.1% viaja en 1 etapa y el 25.0% realiza 2 etapas.
 
-![Figura 1: Porcentaje de viajes según cantidad de etapas por zona geográfica.](figura1_intermodalidad.png)
+![Figura 1: Porcentaje de viajes según cantidad de etapas por zona geográfica.](resultados/visualizaciones/figura1_intermodalidad.png)
 
 ### 2. Asimetría en Distancias de Viaje
 La distancia lineal promedio de un viaje en el AMBA se calculó en 8.83 km (con una mediana global de 5.68 km). Sin embargo, al desglosar por jurisdicción, los desplazamientos internos registran medias notablemente inferiores: 4.92 km en Intra-CABA y 6.53 km en Intra-PBA. En contraste, la red que vincula la periferia bonaerense con el núcleo urbano central (CABA-PBA) soporta viajes masivos que promedian 18.80 km (con una mediana de 17.34 km), representando desplazamientos pendulares de muy larga distancia.
 
-![Figura 2: Distribución de distancias de viaje según zona geográfica.](figura2_distancias.png)
+![Figura 2: Distribución de distancias de viaje según zona geográfica.](resultados/visualizaciones/figura2_distancias.png)
 
 ### 3. Composición Modal y Dependencia
 La composición de modos de transporte revela que la movilidad interna del conurbano (Intra-PBA) presenta una dependencia casi monopólica del colectivo de superficie, el cual concentra el 82.5% de los viajes. Por el contrario, los viajes de conmuters (CABA-PBA) exigen combinaciones multimodales donde el ferrocarril actúa como el troncal de larga distancia: un 22.5% combina colectivo y tren, un 7.9% combina tren y subte, y un 4.4% requiere combinar colectivo, tren y subte. Esto confirma que la intermodalidad en la periferia es una necesidad impuesta para acceder a la red ferroviaria centralizada.
 
-![Figura 3: Composición modal de viajes por jurisdicción.](figura3_modos.png)
+![Figura 3: Composición modal de viajes por jurisdicción.](resultados/visualizaciones/figura3_modos.png)
 
 ## Distribución Continua de IFI e IFT por Jurisdicciones
 
@@ -31,9 +31,11 @@ El análisis estadístico sobre los 5.508.005 viajes válidos demuestra que los 
 ### Índice de Fricción Temporal (IFT)
 Para el IFT, aunque la mediana de todas las jurisdicciones es idéntica (2.0 etapas por hora de viaje), el comportamiento en los percentiles superiores revela el impacto del transbordo en el tiempo de viaje. El tercer cuartil (P75) de IFT para los viajes interjurisdiccionales (**PBA-CABA** y **CABA-PBA**) es de **3.0 etapas/hora**, mientras que para los viajes internos (**Intra-CABA** e **Intra-PBA**) se mantiene en **2.0**. Esto demuestra que un segmento representativo de los conmuters experimenta una alta tasa de transbordos por hora de viaje, incrementando la fricción temporal en sus traslados diarios.
 
-![Figura 12: Distribución de IFI e IFT mediante diagramas de caja sin outliers.](figura12_boxplot_ifi_ift.png)
+![Figura 12: Distribución de IFI e IFT mediante diagramas de caja sin outliers.](resultados/visualizaciones/figura12_boxplot_ifi_ift.png)
 
-![Figura 13: Curvas de densidad de probabilidad estimadas por Kernel (KD## Modelación del Grafo y Centralidades Ponderadas
+![Figura 13: Curvas de densidad de probabilidad estimadas por Kernel (KDE).](resultados/visualizaciones/figura13_densidad_ifi_ift.png)
+
+## Modelación del Grafo y Centralidades Ponderadas
 
 La red de movilidad consolidada para el AMBA en su grilla de referencia H3 de Resolución 8 cuenta con **534 nodos (hexágonos activos)** y **2.292 enlaces de flujo estables** (con $\ge 700$ viajes semanales de origen y $\ge 210$ viajes por enlace, correspondientes a los umbrales diarios escalados a la ventana semanal). Los resultados revelan una profunda polarización espacial en términos de accesibilidad estructural:
 

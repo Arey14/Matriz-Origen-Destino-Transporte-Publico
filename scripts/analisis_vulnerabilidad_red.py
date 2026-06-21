@@ -38,7 +38,8 @@ def main():
     con = duckdb.connect(database=':memory:')
 
     # Cambiar al directorio del proyecto
-    project_dir = "/home/augusto/Downloads/Compressed/Tesis/Matriz-Origen-Destino-Transporte-Publico"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_dir = os.path.dirname(script_dir)
     os.chdir(project_dir)
 
     print("Cargando datasets en DuckDB...")
@@ -316,7 +317,7 @@ def main():
                 opacity=0.7, title="Figura 14: Índice de Vulnerabilidad Socio-Espacial (IVSE) - H3 Res 8 (Semanal)"
             )
             fig14.update_layout(margin={"r":0,"t":40,"l":0,"b":0})
-            fig14.write_html('figura14_vulnerabilidad_sql.html')
+            fig14.write_html('resultados/visualizaciones/figura14_vulnerabilidad_sql.html')
             
             # Mapear Figura 15: Cercanía
             umbral_max_close = df_final['closeness'].quantile(0.98)
@@ -327,7 +328,7 @@ def main():
                 opacity=0.7, title="Figura 15: Cercanía Estructural de Transporte (Closeness) - H3 Res 8 (Semanal)"
             )
             fig15.update_layout(margin={"r":0,"t":40,"l":0,"b":0})
-            fig15.write_html('figura15_cercania_red.html')
+            fig15.write_html('resultados/visualizaciones/figura15_cercania_red.html')
             
             # Mapear Figura 16: Intermediación
             umbral_max_between = df_final['betweenness'].quantile(0.98)
@@ -338,7 +339,7 @@ def main():
                 opacity=0.7, title="Figura 16: Centralidad de Intermediación (Betweenness) - H3 Res 8 (Semanal)"
             )
             fig16.update_layout(margin={"r":0,"t":40,"l":0,"b":0})
-            fig16.write_html('figura16_intermediacion_red.html')
+            fig16.write_html('resultados/visualizaciones/figura16_intermediacion_red.html')
             print("Figuras 14, 15 y 16 renderizadas con éxito.")
 
     # ==========================================
@@ -489,7 +490,7 @@ def main():
         opacity=0.6, title="Figura 17: Índice de Vulnerabilidad Socio-Espacial (IVSE) - Agregación de Voronoi por Paradas"
     )
     fig_vor_ivse.update_layout(margin={"r":0,"t":40,"l":0,"b":0})
-    fig_vor_ivse.write_html('figura17_vulnerabilidad_voronoi.html')
+    fig_vor_ivse.write_html('resultados/visualizaciones/figura17_vulnerabilidad_voronoi.html')
     
     # Mapa Voronoi 2: Cercanía
     umbral_max_vor_close = df_plot_vor['closeness'].quantile(0.98)
@@ -500,7 +501,7 @@ def main():
         opacity=0.6, title="Figura 18: Cercanía Estructural (Closeness Centrality) - Agregación de Voronoi por Paradas"
     )
     fig_vor_close.update_layout(margin={"r":0,"t":40,"l":0,"b":0})
-    fig_vor_close.write_html('figura18_cercania_voronoi.html')
+    fig_vor_close.write_html('resultados/visualizaciones/figura18_cercania_voronoi.html')
     print("Mapas de Voronoi guardados con éxito (figura17 y figura18).")
 
     # ==========================================

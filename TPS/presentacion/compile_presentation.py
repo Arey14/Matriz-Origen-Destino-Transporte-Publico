@@ -6,7 +6,8 @@ def main():
     print("Iniciando la compilación de la Presentación de Tesis...")
     
     # Directorio base del proyecto
-    project_dir = "/home/augusto/Downloads/Compressed/Tesis/Matriz-Origen-Destino-Transporte-Publico"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_dir = os.path.dirname(os.path.dirname(script_dir))
     os.chdir(project_dir)
 
     # Definir rutas

@@ -14,7 +14,8 @@ def main():
     con = duckdb.connect(database=':memory:')
 
     # Change current working directory to where the csv files are located
-    project_dir = "/home/augusto/Downloads/Compressed/Tesis/Matriz-Origen-Destino-Transporte-Publico"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    project_dir = os.path.dirname(script_dir)
     os.chdir(project_dir)
 
     print("Cargando datasets en DuckDB...")
@@ -180,7 +181,7 @@ def main():
 
     plt.suptitle('Distribución comparativa de Índices de Fricción (IFI y IFT)', fontweight='bold')
     plt.tight_layout()
-    plt.savefig('resultados/distribucion_boxplot_ifi_ift.png', dpi=300)
+    plt.savefig('resultados/visualizaciones/figura12_boxplot_ifi_ift.png', dpi=300)
     plt.close()
 
     # 2. KDE / Histogram density plots for detail
@@ -206,10 +207,10 @@ def main():
 
     plt.suptitle('Curvas de Densidad de IFI e IFT por Jurisdicción de Viaje', fontweight='bold')
     plt.tight_layout()
-    plt.savefig('resultados/distribucion_densidad_ifi_ift.png', dpi=300)
+    plt.savefig('resultados/visualizaciones/figura13_densidad_ifi_ift.png', dpi=300)
     plt.close()
 
-    print("Gráficos guardados en resultados/distribucion_boxplot_ifi_ift.png y resultados/distribucion_densidad_ifi_ift.png")
+    print("Gráficos guardados en resultados/visualizaciones/figura12_boxplot_ifi_ift.png y resultados/visualizaciones/figura13_densidad_ifi_ift.png")
 
 if __name__ == "__main__":
     main()

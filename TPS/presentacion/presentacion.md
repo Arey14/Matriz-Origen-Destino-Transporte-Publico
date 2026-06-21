@@ -49,7 +49,7 @@ header-includes:
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=1.0\textwidth]{figura12_boxplot_ifi_ift.png}
+\includegraphics[width=1.0\textwidth]{resultados/visualizaciones/figura12_boxplot_ifi_ift.png}
 \caption{Boxplots descriptivos de IFI y IFT por tipo de flujo de viaje.}
 \end{figure}
 
@@ -165,7 +165,7 @@ header-includes:
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=0.6\textheight, keepaspectratio]{figura13_densidad_ifi_ift.png}
+\includegraphics[height=0.6\textheight, keepaspectratio]{resultados/visualizaciones/figura13_densidad_ifi_ift.png}
 \caption{Curvas de densidad de probabilidad de IFI y IFT para los clusters obtenidos.}
 \end{figure}
 
@@ -188,6 +188,6 @@ header-includes:
 
 \begin{figure}[H]
 \centering
-\includegraphics[height=0.7\textheight, keepaspectratio]{Figura7.png}
+\includegraphics[height=0.7\textheight, keepaspectratio]{resultados/visualizaciones/Figura7.png}
 \caption{Mapa Hexagonal H3 de Transacciones SUBE en el AMBA.}
 \end{figure}

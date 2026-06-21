@@ -49,12 +49,12 @@ Los análisis estadísticos se realizaron sobre un total de **5.508.005 viajes v
 ### Gráfico 1: Comparativa de Rangos Intercuartiles (Boxplots)
 El siguiente gráfico compara los diagramas de caja (boxplots) sin incluir los valores atípicos extremos para enfocar la visualización en los percentiles centrales. Las etiquetas numéricas indican la **mediana** de cada distribución.
 
-![Boxplots de IFI e IFT](/home/augusto/.gemini/antigravity-ide/brain/370cb32d-4bf1-4172-a97c-575cbc3e2c73/distribucion_boxplot_ifi_ift.png)
+![Boxplots de IFI e IFT](../resultados/visualizaciones/figura12_boxplot_ifi_ift.png)
 
 ### Gráfico 2: Curvas de Densidad de Probabilidad (KDE)
 El siguiente gráfico ilustra las curvas de densidad de probabilidad estimadas por kernel (KDE). Esto permite observar la forma continua de la distribución para cada grupo de viajes.
 
-![Curvas de Densidad de IFI e IFT](/home/augusto/.gemini/antigravity-ide/brain/370cb32d-4bf1-4172-a97c-575cbc3e2c73/distribucion_densidad_ifi_ift.png)
+![Curvas de Densidad de IFI e IFT](../resultados/visualizaciones/figura13_densidad_ifi_ift.png)
 
 *Nota: La densidad de IFT muestra picos muy marcados en valores discretos (2, 3, 4, etc.) debido a que las duraciones de los viajes calculadas desde las etapas se basan en diferencias enteras de horas (o en la aproximación de 0.5 horas para viajes de menor duración).*
 
