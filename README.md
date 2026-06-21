@@ -90,9 +90,9 @@ Los viajes son clasificados según su recorrido jurisdiccional en: **Intra-CABA*
 
 ### 2. Índice de Vulnerabilidad Socio-Espacial (IVSE)
 El IVSE identifica las zonas donde convergen la desventaja social de los usuarios y la ineficiencia espacial del sistema de transporte:
-$$\text{IVSE} = \text{ts\_norm} \times \text{ifi\_norm}$$
-- $\text{ts\_norm}$: Proporción de viajes que hacen uso de **Tarifa Social / Subsidio** en la celda de origen (normalizado de 0 a 1).
-- $\text{ifi\_norm}$: Mediana del **IFI** en la celda de origen (normalizado de 0 a 1).
+$$\text{IVSE} = \text{ts}_{\text{norm}} \times \text{ifi}_{\text{norm}}$$
+- $\text{ts}_{\text{norm}}$: Proporción de viajes que hacen uso de **Tarifa Social / Subsidio** en la celda de origen (normalizado de 0 a 1).
+- $\text{ifi}_{\text{norm}}$: Mediana del **IFI** en la celda de origen (normalizado de 0 a 1).
 
 ### 3. Teoría de Redes y Centralidades Estructurales
 Se construye un grafo dirigido y ponderado $G(V, E)$ donde los nodos $V$ representan ubicaciones geográficas y las aristas $E$ representan los flujos de viaje estables de transporte público. El peso de las aristas está determinado por la duración promedio del viaje. 
@@ -107,7 +107,7 @@ El análisis de red se realiza de manera **multiescala**:
 
 ### 4. Modelo de Regresión Multivariable (OLS)
 Se estimó un modelo econométrico de mínimos cuadrados ordinarios para cuantificar la influencia de variables espaciales y de tránsito sobre la duración del viaje:
-$$\text{duracion\_minutos} = \beta_0 + \beta_1 \cdot \text{cantidad\_etapas} + \beta_2 \cdot \text{distancia} + \beta_3 \cdot \text{stops\_density\_o} + \beta_4 \cdot \text{lat\_o} + \beta_5 \cdot \text{lon\_o} + \epsilon$$
+$$\text{duración}_{\text{minutos}} = \beta_0 + \beta_1 \cdot \text{etapas} + \beta_2 \cdot \text{distancia} + \beta_3 \cdot \text{densidad}_{\text{paradas}} + \beta_4 \cdot \text{lat}_o + \beta_5 \cdot \text{lon}_o + \epsilon$$
 Donde `stops_density_o` representa la densidad de paradas en la celda H3 de origen y `lat_o`/`lon_o` capturan el efecto geográfico centro-periferia.
 
 ---
