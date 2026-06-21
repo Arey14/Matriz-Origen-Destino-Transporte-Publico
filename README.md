@@ -157,8 +157,9 @@ Copyright© 2022. Banco Interamericano de Desarrollo ("BID"). Uso autorizado. [A
 
 ## 👥 Autores
 
-- **Felipe González** ([@alephcero](https://github.com/alephcero/))
-- **Sebastián Anapolsky** ([@sanapolsky](https://github.com/sanapolsky/))
+- **Felipe González** ([@alephcero](https://github.com/alephcero/)) (Matriz OD original)
+- **Sebastián Anapolsky** ([@sanapolsky](https://github.com/sanapolsky/)) (Matriz OD original)
+- **Augusto Rey** ([@Arey14](https://github.com/Arey14)) (Análisis de Fricción, Vulnerabilidad y Redes)
 
 ---
 
